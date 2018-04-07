@@ -1,5 +1,6 @@
 package com.example.aashimagarg.googlemaps;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     SupportMapFragment mapFragment;
     String address;
     LatLng loc;
+    TextView formatAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_main);
         addressInput = findViewById(R.id.etAddress);
+        formatAddress = findViewById(R.id.formatAddress);
         final OnMapReadyCallback thisObj = this;
         addressInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
                     loc = new LatLng(results[0].geometry.location.lat, results[0].geometry.location.lng);
+                    String formattedAddress = results[0].formattedAddress;
+                    formatAddress.setText(formattedAddress);
                     // Get the SupportMapFragment and request notification
                     // when the map is ready to be used.
                     mapFragment = (SupportMapFragment) getSupportFragmentManager()
